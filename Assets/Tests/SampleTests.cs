@@ -12,6 +12,7 @@ namespace Tests
         public GameObject game;
         public Player player;
 
+        
         // Sets up the Test Objects (Per Test)
         [UnitySetUp]
         public IEnumerator SetUp()
@@ -30,6 +31,7 @@ namespace Tests
             yield return null;
         }
 
+        #region Test: Player movement
         [UnityTest]
         public IEnumerator PlayerMovement()
         {
@@ -37,6 +39,7 @@ namespace Tests
             Vector3 oldPosition = player.transform.position;
 
             // A. Call Player's 'Move' function
+            // N
             player.Move(Vector3.right, 10);
 
             // B. Wait until the end of the frame
@@ -48,30 +51,53 @@ namespace Tests
             // C. Player's Position should now be different
             Assert.AreNotEqual(oldPosition, newPosition, "Ods are... You fucked up and the player can't move");
         }
+        #endregion
 
-
-
-
-
-
-
-
-        // A Test behaves as an ordinary method
+        #region Test: Player Collides
         [UnityTest]
-        public IEnumerator SampleTestsSimplePasses()
+        public IEnumerator PlayerCollides()
         {
-            // Use the Assert class to test conditions
-            yield return null;
-        }
+            Vector3 playerPos = player.transform.position;
+            GameObject wallPrefab = Resources.Load<GameObject>("Prefabs/Wall");
 
-        // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-        // `yield return null;` to skip a frame.
-        [UnityTest]
-        public IEnumerator SampleTestsWithEnumeratorPasses()
-        {
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
-            yield return null;
+            //spawn the wall at player position
+            GameObject wall = Object.Instantiate(wallPrefab, playerPos, Quaternion.identity);
+            
+            // B. Wait until the end of the frame
+            yield return new WaitForFixedUpdate();
+
+            
+
+            // C. Player.HasCollided should be 'true'
+            Assert.IsTrue(player.HasCollided);
         }
+        #endregion
+
+
+
+
+
+
+
+
+
+
+        //// A Test behaves as an ordinary method
+        //[UnityTest]
+        //public IEnumerator SampleTestsSimplePasses()
+        //{
+        //    // Use the Assert class to test conditions
+        //    yield return null;
+        //}
+
+        //// A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
+        //// `yield return null;` to skip a frame.
+        //[UnityTest]
+        //public IEnumerator SampleTestsWithEnumeratorPasses()
+        //{
+        //    // Use the Assert class to test conditions.
+        //    // Use yield to skip a frame.
+        //    yield return null;
+        //}
     }
 }
