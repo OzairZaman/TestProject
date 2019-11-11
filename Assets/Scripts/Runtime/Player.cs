@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     #region External
     public void Move(Vector3 direction, float force)
     {
-        rigid.AddForce(direction * force);
+        //rigid.AddForce(direction * force);
     }
     #endregion
 }
