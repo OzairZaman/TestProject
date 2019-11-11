@@ -46,7 +46,7 @@ namespace Tests
             Vector3 newPosition = player.transform.position;
 
             // C. Player's Position should now be different
-            Assert.AreNotEqual(oldPosition, newPosition);
+            Assert.AreNotEqual(oldPosition, newPosition, "Ods are... You fucked up and the player can't move");
         }
 
 
